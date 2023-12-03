@@ -1,0 +1,69 @@
+import React, { ReactNode } from 'react';
+import { CgSpinner } from 'react-icons/cg';
+
+interface Props {
+	label: string;
+	onClick?: () => void;
+	type?: 'submit' | 'button';
+	style?: 'primary' | 'secondary' | 'ghost' | 'danger';
+	disabled?: boolean;
+	loading?: boolean;
+	icon?: ReactNode;
+	size?: 'sm' | 'md' | 'lg';
+}
+const Button: React.FC<Props> = ({
+	label,
+	onClick,
+	style = 'primary',
+	disabled = false,
+	loading = false,
+	size = 'md',
+	type = 'button',
+	icon,
+}) => {
+	return (
+		<button
+			className={`cursor-pointer transition-all ease-in-out duration-200 rounded-md font-bold text-center disabled:bg-grey disabled:border-grey ${
+				loading ? 'disabled:cursor-wait' : 'disabled:cursor-not-allowed'
+			} flex justify-center items-center
+      ${
+				size === 'md'
+					? 'w-32 h-12 border-2'
+					: size === 'lg'
+					? 'w-48 h-18 border-4 text-lg'
+					: 'w-26 h-8 border-1 text-sm'
+			}
+      ${
+				style === 'primary' &&
+				'bg-blue text-white border-blue hover:border-blue-dark hover:bg-blue-dark'
+			} 
+      ${
+				style === 'secondary' &&
+				'bg-white text-black border-white hover:bg-black hover:text-white'
+			} 
+      ${
+				style === 'ghost' &&
+				'bg-inherit text-white border-white hover:text-black hover:bg-white'
+			} 
+      ${
+				style === 'danger' &&
+				'bg-red text-white border-red hover:border-red-dark hover:bg-red-dark'
+			}`}
+			disabled={disabled || loading}
+			onClick={() => onClick?.()}
+			type={type}
+		>
+			{loading && (
+				<CgSpinner
+					className={`animate-spin text-white ${
+						size === 'md' ? 'w-6 h-6' : size === 'lg' ? 'w-8 h-8' : 'w-4 h-4'
+					}`}
+				/>
+			)}
+			{!loading && icon}
+			{!loading && label}
+		</button>
+	);
+};
+
+export default Button;

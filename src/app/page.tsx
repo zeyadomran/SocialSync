@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 
 export default function Home() {
@@ -33,7 +34,7 @@ export default function Home() {
 			<div className="flex flex-col items-center gap-4 justify-between z-10">
 				<Link
 					href="/login"
-					className="bg-blue p-2 text-white border-2 border-blue hover:border-blue-dark hover:bg-blue-dark cursor-pointer transition-all ease-in-out duration-200 rounded-md w-32 font-bold text-center"
+					className="bg-blue p-2 text-white border-2 border-blue hover:bg-blue-dark hover:border-blue-dark cursor-pointer rounded-md w-32 text-center font-bold"
 				>
 					Login
 				</Link>
