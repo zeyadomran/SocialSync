@@ -1,13 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
-import Button from '@/components/Button';
-import useIsAuth from '@/hooks/useIsAuth';
 import Link from 'next/link';
+import { CgSpinner } from 'react-icons/cg';
 
-export default function Home() {
-	useIsAuth(true);
+export default function Loading() {
 	return (
-		<main className="flex flex-col justify-start items-center h-full p-16 md:p-24 lg:p-32 gap-16 relative">
+		<main className="h-full w-full flex flex-col items-center justify-start relative p-16 md:p-24 lg:p-32 gap-16">
 			<img
 				src="./ball-large.svg"
 				alt="large ball"
@@ -28,21 +26,11 @@ export default function Home() {
 				alt="small ball"
 				className="absolute -bottom-4 right-2/3"
 			/>
-
-			<div className="z-10">
+			<div className="z-10 mb-auto">
 				<img src="./logo.svg" alt="socialsync logo" />
 			</div>
-			<div className="z-10">
-				<img src="./hero.png" alt="hero" />
-			</div>
-			<div className="flex flex-col items-center gap-4 justify-between z-10">
-				<Link href="/login">
-					<Button label="Login" />
-				</Link>
-				<p className="text-grey">or</p>
-				<Link href="/signup">
-					<Button label="Signup" style="secondary" />
-				</Link>
+			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+				<CgSpinner className={`animate-spin text-blue w-32 h-32`} />
 			</div>
 		</main>
 	);

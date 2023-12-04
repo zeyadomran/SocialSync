@@ -2,15 +2,26 @@
 'use client';
 import Button from '@/components/Button';
 import InputField from '@/components/InputField';
+import isValidToken from '@/components/helpers/isValidToken';
 import signupThunk from '@/store/signup.thunk';
 import { Formik } from 'formik';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 export default function Home() {
 	const dispatch = useDispatch();
-	const { loading, error, userId } = useSelector(({ session }) => session);
+	const { loading, error, parsedToken } = useSelector(({ session }) => session);
+	const searchParams = useSearchParams();
+	const router = useRouter();
+
+	useEffect(() => {
+		if (isValidToken(parsedToken)) {
+			router.push(searchParams.get('navigatedFrom') ?? '/app');
+		}
+	}, [parsedToken, router, searchParams]);
 
 	return (
 		<main className="flex flex-col justify-start items-center h-full p-16 md:p-24 lg:p-32 gap-16 relative">
@@ -42,9 +53,9 @@ export default function Home() {
 			<Formik
 				initialValues={{ email: '', password: '', name: '' }}
 				validationSchema={Yup.object().shape({
-					email: Yup.string().email('Invalid email').required('required'),
+					email: Yup.string().email('invalid email').required('required'),
 					password: Yup.string()
-						.min(6, 'Password is too short')
+						.min(6, 'password is too short')
 						.required('required'),
 					name: Yup.string().required('required'),
 				})}
@@ -57,32 +68,58 @@ export default function Home() {
 				{(formik) => (
 					<div className="flex flex-col items-center justify-between gap-8">
 						<div className="z-10 flex flex-col items-center justify-between gap-4">
-							<p className="text-red font-bold">{error}</p>
 							<InputField
 								name="name"
 								label="Name"
-								onChange={formik.handleChange}
+								onChange={(e) => {
+									if (!formik.touched.name) {
+										formik.setTouched({ ...formik.touched, name: true });
+									}
+									formik.handleChange(e);
+								}}
 								value={formik.values.name}
-								placeholder="-"
-								error={formik.errors.name}
+								placeholder="name"
+								error={
+									!!formik.errors.name && formik.touched.name
+										? formik.errors.name
+										: ''
+								}
 							/>
 							<InputField
 								name="email"
 								label="Email"
 								type="email"
-								onChange={formik.handleChange}
+								onChange={(e) => {
+									if (!formik.touched.email) {
+										formik.setTouched({ ...formik.touched, email: true });
+									}
+									formik.handleChange(e);
+								}}
 								value={formik.values.email}
-								placeholder="-"
-								error={formik.errors.email}
+								placeholder="email@example.com"
+								error={
+									!!formik.errors.email && formik.touched.email
+										? formik.errors.email
+										: ''
+								}
 							/>
 							<InputField
 								name="password"
 								label="Password"
 								type="password"
-								onChange={formik.handleChange}
+								onChange={(e) => {
+									if (!formik.touched.password) {
+										formik.setTouched({ ...formik.touched, password: true });
+									}
+									formik.handleChange(e);
+								}}
 								value={formik.values.password}
-								placeholder="-"
-								error={formik.errors.password}
+								placeholder="password"
+								error={
+									!!formik.errors.password && formik.touched.password
+										? formik.errors.password
+										: ''
+								}
 							/>
 						</div>
 						<div className="flex flex-col items-center gap-4 justify-between z-10">

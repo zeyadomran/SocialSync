@@ -1,18 +1,21 @@
-import { usePathname, useRouter } from 'next/navigation';
+import isValidToken from '@/components/helpers/isValidToken';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-const useIsAuth = () => {
+const useIsAuth = (skipLogin?: boolean) => {
 	const { parsedToken } = useSelector(({ session }) => session);
 	const pathname = usePathname();
 	const router = useRouter();
+	const searchParams = useSearchParams();
 
 	useEffect(() => {
-		const currentTime = new Date().getTime();
-		if (!parsedToken || parsedToken.exp < currentTime / 1000) {
+		if (!isValidToken(parsedToken) && !skipLogin) {
 			router.push('/login?navigatedFrom=' + pathname);
+		} else if (isValidToken(parsedToken)) {
+			router.push(searchParams.get('navigatedFrom') ?? '/app');
 		}
-	}, [parsedToken, pathname, router]);
+	}, [parsedToken, pathname, router, searchParams, skipLogin]);
 };
 
 export default useIsAuth;

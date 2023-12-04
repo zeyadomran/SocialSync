@@ -28,14 +28,14 @@ const Button: React.FC<Props> = ({
 			} flex justify-center items-center
       ${
 				size === 'md'
-					? 'w-32 h-12 border-2'
+					? 'w-32 h-10 border-2'
 					: size === 'lg'
 					? 'w-48 h-18 border-4 text-lg'
-					: 'w-26 h-8 border-1 text-sm'
+					: 'w-26 h-6 border-1 text-sm'
 			}
       ${
 				style === 'primary' &&
-				'bg-blue text-white border-blue hover:border-blue-dark hover:bg-blue-dark'
+				'bg-blue text-white border-blue hover:bg-blue-dark'
 			} 
       ${
 				style === 'secondary' &&
@@ -43,11 +43,10 @@ const Button: React.FC<Props> = ({
 			} 
       ${
 				style === 'ghost' &&
-				'bg-inherit text-white border-white hover:text-black hover:bg-white'
+				'bg-inherit text-white border-blue-dark hover:bg-blue'
 			} 
       ${
-				style === 'danger' &&
-				'bg-red text-white border-red hover:border-red-dark hover:bg-red-dark'
+				style === 'danger' && 'bg-red text-white border-red hover:bg-red-dark'
 			}`}
 			disabled={disabled || loading}
 			onClick={() => onClick?.()}
