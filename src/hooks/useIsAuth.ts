@@ -12,8 +12,8 @@ const useIsAuth = (skipLogin?: boolean) => {
 	useEffect(() => {
 		if (!isValidToken(parsedToken) && !skipLogin) {
 			router.push('/login?navigatedFrom=' + pathname);
-		} else if (isValidToken(parsedToken)) {
-			router.push(searchParams.get('navigatedFrom') ?? '/app');
+		} else if (isValidToken(parsedToken) && !pathname.startsWith('/app')) {
+			router.push(searchParams.get('navigatedFrom') ?? '/app/home');
 		}
 	}, [parsedToken, pathname, router, searchParams, skipLogin]);
 };
