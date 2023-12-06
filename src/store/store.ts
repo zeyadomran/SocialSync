@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import thunk from 'redux-thunk';
 import sessionReducer from './session.slice';
+import pageDataReducer from './pageData.slice';
 import createFilter from 'redux-persist-transform-filter';
 
 const createNoopStorage = () => {
@@ -33,7 +34,10 @@ const persistConfig = {
 	transforms: [createFilter('session', ['parsedToken', 'token', 'userId'])],
 };
 
-const rootReducer = combineReducers({ session: sessionReducer });
+const rootReducer = combineReducers({
+	session: sessionReducer,
+	pageData: pageDataReducer,
+});
 
 const store = configureStore({
 	reducer: persistReducer(persistConfig, rootReducer),

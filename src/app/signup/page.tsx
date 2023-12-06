@@ -19,7 +19,7 @@ export default function Home() {
 
 	useEffect(() => {
 		if (isValidToken(parsedToken)) {
-			router.push(searchParams.get('navigatedFrom') ?? '/app');
+			router.push('/app/profile');
 		}
 	}, [parsedToken, router, searchParams]);
 
@@ -51,22 +51,33 @@ export default function Home() {
 			</div>
 
 			<Formik
-				initialValues={{ email: '', password: '', name: '' }}
+				initialValues={{ email: '', password: '', name: '', age: '' }}
 				validationSchema={Yup.object().shape({
 					email: Yup.string().email('invalid email').required('required'),
 					password: Yup.string()
 						.min(6, 'password is too short')
 						.required('required'),
 					name: Yup.string().required('required'),
+					age: Yup.string()
+						.matches(
+							/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/g,
+							'date of birth must be in the format DD/MM/YYYY'
+						)
+						.required('required'),
 				})}
 				onSubmit={(values) => {
 					dispatch(
-						signupThunk(values.name, values.email, values.password) as any
+						signupThunk(
+							values.name,
+							values.email,
+							values.password,
+							values.age
+						) as any
 					);
 				}}
 			>
 				{(formik) => (
-					<div className="flex flex-col items-center justify-between gap-8">
+					<div className="flex flex-col items-center justify-between gap-10">
 						<div className="z-10 flex flex-col items-center justify-between gap-4">
 							<InputField
 								name="name"
@@ -118,6 +129,23 @@ export default function Home() {
 								error={
 									!!formik.errors.password && formik.touched.password
 										? formik.errors.password
+										: ''
+								}
+							/>
+							<InputField
+								name="age"
+								label="Date of birth"
+								onChange={(e) => {
+									if (!formik.touched.age) {
+										formik.setTouched({ ...formik.touched, age: true });
+									}
+									formik.handleChange(e);
+								}}
+								value={formik.values.age}
+								placeholder="DD/MM/YYYY"
+								error={
+									!!formik.errors.age && formik.touched.age
+										? formik.errors.age
 										: ''
 								}
 							/>

@@ -20,7 +20,7 @@ export default function Home() {
 
 	useEffect(() => {
 		if (isValidToken(parsedToken)) {
-			router.push(searchParams.get('navigatedFrom') ?? '/app');
+			router.push(searchParams.get('navigatedFrom') ?? '/app/home');
 		}
 	}, [parsedToken, router, searchParams]);
 

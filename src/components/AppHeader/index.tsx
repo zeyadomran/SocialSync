@@ -2,15 +2,23 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { HiOutlineChat, HiChat, HiOutlineHeart, HiHeart } from 'react-icons/hi';
 
 const AppHeader = () => {
-	const pathname = usePathname();
+	const p = usePathname();
+	const [pathname, setPathname] = useState('');
+	useEffect(() => setPathname(p), [p]);
 
 	return (
 		<div className="flex w-full justify-between items-center">
 			<div>
-				<img src="../logo.svg" alt="socialsync logo" />
+				<img
+					src={
+						pathname.split('/').length > 1 ? '../../logo.svg' : '../logo.svg'
+					}
+					alt="socialsync logo"
+				/>
 			</div>
 			<div className="flex items-center justify-between gap-4">
 				<Link href="/app/chat">

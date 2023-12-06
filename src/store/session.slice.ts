@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { jwtDecode } from 'jwt-decode';
-import { useSelector } from 'react-redux';
 
 export interface SessionState {
 	token?: string;
@@ -23,6 +22,9 @@ const sessionSlice = createSlice({
 	initialState,
 	reducers: {
 		setToken: (state, action) => {
+			if (!action.payload) {
+				return initialState;
+			}
 			const token = action.payload.token;
 			const userId = action.payload.userID;
 			return {
