@@ -87,6 +87,7 @@ export default function Home() {
 				{(formik) => (
 					<div className="flex flex-col items-center justify-between gap-10">
 						<div className="z-10 flex flex-col items-center justify-between gap-4">
+							{error && <p className="text-red font-bold">{error}</p>}
 							<InputField
 								name="name"
 								label="Name"

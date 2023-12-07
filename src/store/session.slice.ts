@@ -36,7 +36,7 @@ const sessionSlice = createSlice({
 			};
 		},
 		setError: (state, action) => {
-			const error = action.payload.error;
+			const error = action.payload as string;
 			return { ...state, error, loading: false };
 		},
 		setLoading: (state, action) => {
