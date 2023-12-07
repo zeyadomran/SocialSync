@@ -24,7 +24,7 @@ export default function Page() {
 	}, [dispatch]);
 
 	return (
-		<div className="flex flex-col gap-4 items-start justify-start w-full h-full">
+		<div className="flex flex-col gap-4 items-start justify-start w-96 h-full">
 			{data && (
 				<Formik
 					initialValues={{

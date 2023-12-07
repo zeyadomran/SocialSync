@@ -20,7 +20,7 @@ export default function Page() {
 	const [image, setImage] = useState<File | undefined>(undefined);
 
 	return (
-		<div className="flex flex-col gap-4 items-start justify-start w-full h-full overflow-y-scroll">
+		<div className="flex flex-col gap-4 items-start justify-start w-96 h-full overflow-y-scroll">
 			<Formik
 				initialValues={{
 					name: '',
@@ -105,12 +105,7 @@ export default function Page() {
 								onClick={() => formik.submitForm()}
 							/>
 							<Link href="../">
-								<Button
-									icon={<HiOutlineCalendar />}
-									label="Go back"
-									size="sm"
-									style="secondary"
-								/>
+								<Button label="Go back" size="sm" style="secondary" />
 							</Link>
 						</div>
 						<div className="flex justify-between items-start w-full gap-4">

@@ -35,7 +35,7 @@ export default function Page() {
 		dispatch(userProfileThunk() as any);
 	}, [dispatch]);
 	return (
-		<div className="flex flex-col gap-4 items-start justify-start w-full h-full">
+		<div className="flex flex-col gap-4 items-start justify-start w-96 h-full">
 			<div className="w-full flex justify-end gap-4">
 				{data && (
 					<Button
