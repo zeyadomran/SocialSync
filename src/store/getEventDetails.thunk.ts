@@ -44,11 +44,10 @@ const getEventDetailsThunk = (id: string) => {
 					dispatch(
 						setData({
 							...event,
-							interested: !!(
-								await interestedEvents.json()
-							).interested_events?.find(
-								(e: any) => e.event_name === event.event_name
-							),
+							interested:
+								!!(await interestedEvents.json()).interested_events?.find(
+									(e: any) => e.event_name === event.event_name
+								) || !!event.attendees.find((u: string) => u === userId),
 							userImages,
 						})
 					);
