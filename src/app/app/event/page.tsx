@@ -130,9 +130,9 @@ export default function Page() {
 			)}
 			{data && (
 				<div className="w-full flex flex-col gap-4">
-					<p className="font-bold text-xl">{data.attendees.length} Enrolled</p>
+					<p className="font-bold text-xl">{data.attendees?.length} Enrolled</p>
 					<div className="flex items-center justify-start gap-2">
-						{data.userImages.map(({ id, imgurl }: any, index: number) => (
+						{data.userImages?.map(({ id, imgurl }: any, index: number) => (
 							<div
 								key={index}
 								className={`w-12 h-12 rounded-md flex items-center justify-center bg-blue-dark ${
