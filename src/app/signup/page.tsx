@@ -51,7 +51,13 @@ export default function Home() {
 			</div>
 
 			<Formik
-				initialValues={{ email: '', password: '', name: '', age: '' }}
+				initialValues={{
+					email: '',
+					password: '',
+					name: '',
+					age: '',
+					description: '',
+				}}
 				validationSchema={Yup.object().shape({
 					email: Yup.string().email('invalid email').required('required'),
 					password: Yup.string()
@@ -64,6 +70,7 @@ export default function Home() {
 							'date of birth must be in the format DD/MM/YYYY'
 						)
 						.required('required'),
+					description: Yup.string().required('required'),
 				})}
 				onSubmit={(values) => {
 					dispatch(
@@ -71,7 +78,8 @@ export default function Home() {
 							values.name,
 							values.email,
 							values.password,
-							values.age
+							values.age,
+							values.description
 						) as any
 					);
 				}}
@@ -146,6 +154,27 @@ export default function Home() {
 								error={
 									!!formik.errors.age && formik.touched.age
 										? formik.errors.age
+										: ''
+								}
+							/>
+							<InputField
+								name="description"
+								label="Description"
+								type="textarea"
+								onChange={(e) => {
+									if (!formik.touched.description) {
+										formik.setTouched({
+											...formik.touched,
+											description: true,
+										});
+									}
+									formik.handleChange(e);
+								}}
+								value={formik.values.description}
+								placeholder="description"
+								error={
+									!!formik.errors.description && formik.touched.description
+										? (formik.errors.description as string)
 										: ''
 								}
 							/>

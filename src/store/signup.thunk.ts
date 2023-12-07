@@ -5,14 +5,15 @@ const signupThunk = (
 	name: string,
 	email: string,
 	password: string,
-	age: string
+	age: string,
+	description: string
 ) => {
 	return (dispatch: Dispatch, getState: any) => {
 		dispatch(setLoading({}));
 		fetch('https://socialsync-ngrp6xylzq-wl.a.run.app/api/signup', {
 			method: 'POST',
 			headers: { 'Content-type': 'application/json' },
-			body: JSON.stringify({ name, email, password, age }),
+			body: JSON.stringify({ name, email, password, age, description }),
 		})
 			.then(async (response) => {
 				if (response.ok) {

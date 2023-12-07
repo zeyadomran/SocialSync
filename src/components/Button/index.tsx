@@ -25,7 +25,7 @@ const Button: React.FC<Props> = ({
 		<button
 			className={`cursor-pointer transition-all ease-in-out duration-200 rounded-md font-bold text-center disabled:bg-grey disabled:border-grey ${
 				loading ? 'disabled:cursor-wait' : 'disabled:cursor-not-allowed'
-			} flex justify-center items-center
+			} flex justify-center items-center gap-2
       ${
 				size === 'md'
 					? 'w-32 h-10 border-2'

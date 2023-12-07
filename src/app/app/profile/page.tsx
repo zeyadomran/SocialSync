@@ -6,15 +6,14 @@ import { setToken } from '@/store/session.slice';
 import userProfileThunk from '@/store/userProfile.thunk';
 import { reverse } from 'lodash';
 import Link from 'next/link';
-import { Suspense, useEffect } from 'react';
-import { CgSpinner } from 'react-icons/cg';
+import { useEffect } from 'react';
 import {
 	HiOutlineCalendar,
 	HiOutlineIdentification,
 	HiOutlineUserCircle,
 	HiStar,
 } from 'react-icons/hi';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Page() {
 	useIsAuth();
@@ -79,28 +78,22 @@ export default function Page() {
 							<div className="p-1 bg-blue text-white rounded-md text-sm flex items-center gap-1">
 								<HiStar className="w-4 h-4" />
 								<p>
-									{data.rating !== ''
-										? Math.round(
-												(data.rating
-													.split(',')
-													.reduce(
-														(sum: number, cur: string) => (sum += +cur),
-														0
-													) /
-													data.rating.split(',').length) *
-													100
-										  ) /
-												100 +
-										  ' / 5'
-										: 'N/A'}
+									{Math.round(
+										(data.rating.reduce(
+											(sum: number, cur: number) => (sum += cur),
+											0
+										) /
+											data.rating.length) *
+											100
+									) / 100}{' '}
+									/ 5
 								</p>
 							</div>
 							<div className="p-1 bg-blue text-white rounded-md text-sm flex items-center gap-1">
 								<HiOutlineCalendar className="w-4 h-4" />
 								<p>
-									{data.events_created !== ''
-										? data.events_created.split(',').length
-										: 0}{' '}
+									{data.events_created?.filter((e: string) => e !== 'none')
+										.length ?? 0}{' '}
 									events created
 								</p>
 							</div>

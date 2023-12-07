@@ -105,6 +105,7 @@ export default function Page() {
 												? 'Upload image'
 												: 'Update image'
 										}
+										filename={newImage?.name}
 										onSubmit={(file: File | undefined) => {
 											setNewImage(file);
 										}}
@@ -112,7 +113,7 @@ export default function Page() {
 								</div>
 							</div>
 							<div className="flex flex-col items-center justify-between gap-10 w-full">
-								<div className="z-10 flex flex-col items-center justify-between gap-4 w-full">
+								<div className="flex flex-col items-center justify-between gap-4 w-full">
 									<InputField
 										name="name"
 										label="Name"
