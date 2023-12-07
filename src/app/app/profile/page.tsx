@@ -22,7 +22,7 @@ export default function Page() {
 
 	const getAge = (dateString: string) => {
 		var today = new Date();
-		var birthDate = new Date(reverse(dateString.split('/')).join('/'));
+		var birthDate = new Date(reverse((dateString ?? '').split('/')).join('/'));
 		var age = today.getFullYear() - birthDate.getFullYear();
 		var m = today.getMonth() - birthDate.getMonth();
 		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -89,12 +89,10 @@ export default function Page() {
 						<HiStar className="w-4 h-4" />
 						<p>
 							{Math.round(
-								(data.rating.reduce(
+								(data.rating?.reduce(
 									(sum: number, cur: number) => (sum += cur),
 									0
-								) /
-									data.rating.length) *
-									100
+								) / data.rating?.length ?? 1) * 100
 							) / 100}{' '}
 							/ 5
 						</p>
