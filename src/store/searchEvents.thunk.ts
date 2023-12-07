@@ -18,14 +18,7 @@ const searchEventsThunk = (searchText: string) => {
 			.then(async (response) => {
 				if (response.ok) {
 					const events = await response.json();
-					dispatch(
-						setData({
-							events: Object.keys(events)?.reduce(
-								(acc: any, cur: any) => [...acc, { ...events[cur], id: cur }],
-								[]
-							),
-						})
-					);
+					dispatch(setData({ events }));
 				} else {
 					dispatch(setError((await response.json())?.message));
 				}

@@ -56,11 +56,10 @@ const createEventThunk = (
 				} else if (response.ok && !!image) {
 					const formData = new FormData();
 					formData.append('images', image);
+					const eventId = (await response.json()).eventID;
 					const imgResponse = await fetch(
 						'https://socialsync-ngrp6xylzq-wl.a.run.app/api/event/picture/' +
-							(
-								await response.json()
-							).eventID,
+							eventId,
 						{
 							method: 'POST',
 							headers: {
@@ -81,6 +80,7 @@ const createEventThunk = (
 								numOfParticipants,
 								target_audience: targetAudience,
 								description,
+								id: eventId,
 								images: [(await imgResponse.json()).url],
 							})
 						);

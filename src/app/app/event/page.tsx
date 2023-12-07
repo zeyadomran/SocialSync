@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import useIsAuth from '@/hooks/useIsAuth';
 import addEventInterestThunk from '@/store/addEventInterest.thunk';
 import getEventDetailsThunk from '@/store/getEventDetails.thunk';
+import { setData } from '@/store/pageData.slice';
 import removeEventInterestThunk from '@/store/removeEventInterest.thunk';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -25,6 +26,7 @@ export default function Page() {
 	const params = useSearchParams();
 	const { data } = useSelector(({ pageData }) => pageData);
 	useEffect(() => {
+		dispatch(setData(undefined));
 		dispatch(getEventDetailsThunk(params.get('eventId') ?? '') as any);
 	}, [dispatch, params]);
 	return (

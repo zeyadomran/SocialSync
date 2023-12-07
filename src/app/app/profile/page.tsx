@@ -2,6 +2,7 @@
 'use client';
 import Button from '@/components/Button';
 import useIsAuth from '@/hooks/useIsAuth';
+import { setData } from '@/store/pageData.slice';
 import { setToken } from '@/store/session.slice';
 import userProfileThunk from '@/store/userProfile.thunk';
 import { reverse } from 'lodash';
@@ -32,6 +33,7 @@ export default function Page() {
 	};
 
 	useEffect(() => {
+		dispatch(setData(undefined));
 		dispatch(userProfileThunk() as any);
 	}, [dispatch]);
 	return (

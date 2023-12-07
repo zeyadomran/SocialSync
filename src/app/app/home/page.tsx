@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import EventCard from '@/components/EventCard';
 import useIsAuth from '@/hooks/useIsAuth';
 import getHomePageDataThunk from '@/store/getHomePageData.thunk';
+import { setData } from '@/store/pageData.slice';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { HiOutlineCalendar } from 'react-icons/hi';
@@ -14,6 +15,8 @@ export default function Page() {
 	const dispatch = useDispatch();
 	const { data } = useSelector(({ pageData }) => pageData);
 	useEffect(() => {
+		dispatch(setData(undefined));
+
 		dispatch(getHomePageDataThunk() as any);
 	}, [dispatch]);
 	return (

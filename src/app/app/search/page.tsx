@@ -5,6 +5,7 @@ import EventCard from '@/components/EventCard';
 import InputField from '@/components/InputField';
 import useIsAuth from '@/hooks/useIsAuth';
 import getHomePageDataThunk from '@/store/getHomePageData.thunk';
+import { setData } from '@/store/pageData.slice';
 import searchEventsThunk from '@/store/searchEvents.thunk';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -19,8 +20,13 @@ export default function Page() {
 	const params = useSearchParams();
 	const { data, loading } = useSelector(({ pageData }) => pageData);
 	useEffect(() => {
-		dispatch(searchEventsThunk('') as any);
-	}, [dispatch]);
+		dispatch(setData(undefined));
+		if (searchText === '' && !modified) {
+			setSearchText(params.get('query') ?? '');
+			setModified(true);
+			dispatch(searchEventsThunk(params.get('query') ?? '') as any);
+		}
+	}, [dispatch, params, searchText, modified]);
 
 	useEffect(() => {
 		if (searchText === '' && !modified) {

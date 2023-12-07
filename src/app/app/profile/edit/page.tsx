@@ -4,10 +4,12 @@ import Button from '@/components/Button';
 import FileUpload from '@/components/FileUpload';
 import InputField from '@/components/InputField';
 import useIsAuth from '@/hooks/useIsAuth';
+import { setData } from '@/store/pageData.slice';
 import updateUserThunk from '@/store/updateUser.thunk';
 import userProfileThunk from '@/store/userProfile.thunk';
 import { Formik } from 'formik';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,8 +20,9 @@ export default function Page() {
 	const dispatch = useDispatch();
 	const { data, loading } = useSelector(({ pageData }) => pageData);
 	const [newImage, setNewImage] = useState<File | undefined>(undefined);
-
+	const router = useRouter();
 	useEffect(() => {
+		dispatch(setData(undefined));
 		dispatch(userProfileThunk() as any);
 	}, [dispatch]);
 
@@ -53,6 +56,7 @@ export default function Page() {
 							name: false,
 						});
 						setNewImage(undefined);
+						router.push('/app/profile');
 					}}
 				>
 					{(formik) => (

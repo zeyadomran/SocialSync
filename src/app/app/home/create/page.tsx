@@ -6,9 +6,11 @@ import FileUpload from '@/components/FileUpload';
 import InputField from '@/components/InputField';
 import useIsAuth from '@/hooks/useIsAuth';
 import createEventThunk from '@/store/createEvent.thunk';
+import { setData } from '@/store/pageData.slice';
 import { Formik } from 'formik';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { HiOutlineCalendar } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -18,7 +20,15 @@ export default function Page() {
 	const dispatch = useDispatch();
 	const { data, loading, error } = useSelector(({ pageData }) => pageData);
 	const [image, setImage] = useState<File | undefined>(undefined);
-
+	const router = useRouter();
+	useEffect(() => {
+		dispatch(setData(undefined));
+	}, [dispatch]);
+	useEffect(() => {
+		if (image && data?.id) {
+			router.push('/app/event?eventId=' + data.id);
+		}
+	}, [image, data, router]);
 	return (
 		<div className="flex flex-col gap-4 items-start justify-start w-96 h-full overflow-y-scroll">
 			<Formik
