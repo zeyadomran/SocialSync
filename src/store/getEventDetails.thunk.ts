@@ -22,11 +22,31 @@ const getEventDetailsThunk = (id: string) => {
 							},
 						}
 					);
+					const event = await response.json();
+					const userImages = [];
+					for (let i = 0; i < event.attendees.length; i++) {
+						try {
+							const imgurl = await fetch(
+								`https://socialsync-ngrp6xylzq-wl.a.run.app/api/users/picture/${event.attendees[i]}`,
+								{
+									method: 'GET',
+									headers: {
+										Authorization: token,
+									},
+								}
+							);
+							userImages.push({
+								id: event.attendees[i],
+								imgurl: (await imgurl.json())?.url ?? '',
+							});
+						} catch {}
+					}
 					dispatch(
 						setData({
-							...(await response.json()),
+							...event,
 							interested:
 								(await interestedEvents.json()).interested_events.length > 0,
+							userImages,
 						})
 					);
 				} else {
