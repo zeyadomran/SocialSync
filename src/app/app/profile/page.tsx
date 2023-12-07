@@ -70,34 +70,7 @@ export default function Page() {
 					</div>
 					<div className="w-1/2 flex flex-col items-start justify-start gap-2">
 						<p className="font-bold text-xl">{data.name}</p>
-						<div className="flex flex-wrap gap-1">
-							<div className="p-1 bg-blue text-white rounded-md text-sm flex items-center gap-1">
-								<HiOutlineIdentification className="w-4 h-4" />
-								<p> {getAge(data.age)} years old</p>
-							</div>
-							<div className="p-1 bg-blue text-white rounded-md text-sm flex items-center gap-1">
-								<HiStar className="w-4 h-4" />
-								<p>
-									{Math.round(
-										(data.rating.reduce(
-											(sum: number, cur: number) => (sum += cur),
-											0
-										) /
-											data.rating.length) *
-											100
-									) / 100}{' '}
-									/ 5
-								</p>
-							</div>
-							<div className="p-1 bg-blue text-white rounded-md text-sm flex items-center gap-1">
-								<HiOutlineCalendar className="w-4 h-4" />
-								<p>
-									{data.events_created?.filter((e: string) => e !== 'none')
-										.length ?? 0}{' '}
-									events created
-								</p>
-							</div>
-						</div>
+
 						<p className="text-grey font-medium text-sm">
 							{data.description !== ''
 								? data.description
@@ -107,11 +80,33 @@ export default function Page() {
 				</div>
 			)}
 			{data && (
-				<div className="flex flex-col items-start justify-start w-full gap-4">
-					<p className="text-white text-xl font-bold w-full">
-						Activites completed
-					</p>
-					<p className="text-grey font-medium">No activities completed.</p>
+				<div className="flex flex-wrap gap-2 w-full">
+					<div className="p-1 h-8 bg-blue text-white rounded-md text-sm flex items-center gap-1">
+						<HiOutlineIdentification className="w-4 h-4" />
+						<p> {getAge(data.age)} years old</p>
+					</div>
+					<div className="p-1 h-8 bg-blue text-white rounded-md text-sm flex items-center gap-1">
+						<HiStar className="w-4 h-4" />
+						<p>
+							{Math.round(
+								(data.rating.reduce(
+									(sum: number, cur: number) => (sum += cur),
+									0
+								) /
+									data.rating.length) *
+									100
+							) / 100}{' '}
+							/ 5
+						</p>
+					</div>
+					<div className="p-1 h-8 bg-blue text-white rounded-md text-sm flex items-center gap-1">
+						<HiOutlineCalendar className="w-4 h-4" />
+						<p>
+							{data.events_created?.filter((e: string) => e !== 'none')
+								.length ?? 0}{' '}
+							events created
+						</p>
+					</div>
 				</div>
 			)}
 		</div>

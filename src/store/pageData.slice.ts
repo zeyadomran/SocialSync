@@ -28,7 +28,7 @@ const padeDataSlice = createSlice({
 			return { ...state, error, loading: false };
 		},
 		setLoading: (state, action) => {
-			return { ...state, loading: true };
+			return { ...state, loading: true, data: undefined, error: undefined };
 		},
 	},
 });

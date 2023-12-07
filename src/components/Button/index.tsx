@@ -43,7 +43,7 @@ const Button: React.FC<Props> = ({
 			} 
       ${
 				style === 'ghost' &&
-				'bg-inherit text-white border-blue-dark hover:bg-blue'
+				'bg-inherit text-white border-white hover:bg-white hover:text-black'
 			} 
       ${
 				style === 'danger' && 'bg-red text-white border-red hover:bg-red-dark'
